@@ -1,0 +1,58 @@
+body {
+  background: #f2f2f2;
+  background-image: url('image/themelight.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+button.change-theme {
+  background-image: url('image/moon.svg');
+  color: #ffffff;
+}
+/*--------------listinfo__create*/
+.listinfo__create {
+  background: #ffffff;
+}
+.create__checkbox + label::before {
+  border: 1px solid #e3e4f1;
+}
+/*--------------create__input*/
+input.create__input {
+  background: #ffffff;
+}
+input.create__input:optional {
+  color: #9495a5;
+}
+input.create__input:focus {
+  color: #393a4b;
+}
+.todo__checkbox + label::before {
+  border: 1px solid #e3e4f1;
+}
+/*---------------------------------*/
+/*---------------listinfo*/
+.listinfo {
+  background: #ffffff;
+  box-shadow: 0px 35px 50px -15px rgba(194, 195, 214, 0.5);
+}
+li.todo__task {
+  border-bottom: solid 1px #e3e4f1;
+  color: #494c6b;
+}
+li.checked {
+  text-decoration-line: line-through;
+  color: #d1d2da;
+}
+/*------------listinfo__footer*/
+.listinfo__footer {
+  background: #ffffff;
+}
+.calc {
+  color: #9495a5;
+}
+button {
+  color: #9495a5;
+}
+/*--------------Footer*/
+h3.footer__title {
+  color: #9495a5;
+}

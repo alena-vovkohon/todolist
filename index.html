@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TODO List</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="light-theme.css" id="theme" />
+    </head>
+    <body>
+        <div class="container">
+            <!-- /.section__head -->
+            <section class="section__head">
+                <div class="head__title">
+                    <h1 class="title">TODO</h1>
+                </div>
+                <div class="section__change-theme">
+                    <button class="change-theme"></button>
+                </div>
+            </section>
+            <!-- /.section__head -->
+        </div>
+        <div class="container">
+            <!-- /.section__listinfo -->
+            <section class="section__listinfo">
+                <div class="listinfo__create">
+                    <div class="create">
+                        <!-- /checkbox -->
+                        <input
+                            type="checkbox"
+                            class="create__checkbox"
+                            id="checkbox"
+                        />
+                        <label class="create__item" for="checkbox"> </label>
+                        <input
+                            type="text"
+                            class="create__input"
+                            placeholder="Create a new todo…"
+                        />
+                        <!-- /checkbox -->
+                        <button class="create__button">add todo</button>
+                    </div>
+                </div>
+                <!-- /.listinfo -->
+                <div class="listinfo">
+                    <div class="listinfo__todo">
+                        <ul class="todo__list">
+                            <li class="todo__task">
+                                <input
+                                    type="checkbox"
+                                    class="todo__checkbox"
+                                    id="checkbox1"
+                                />
+                                <label
+                                    class="todo__item"
+                                    for="checkbox1"
+                                ></label>
+                                Complete online JavaScript course
+                            </li>
+                            <!-- <li class="todo__item">
+                                <input
+                                    type="checkbox"
+                                    class="todo__checkbox"
+                                    id="checkbox"
+                                />
+                                <label class="todo__text" for="checkbox"
+                                    >Jog around the park 3x</label
+                                >
+                            </li> -->
+                        </ul>
+                    </div>
+                    <div class="listinfo__footer">
+                        <div class="footer__calc">
+                            <p class="calc">
+                                <span class="calc__number">5</span> items left
+                            </p>
+                        </div>
+                        <div class="footer__function">
+                            <button class="function__all active">All</button>
+                            <button class="function__active">Active</button>
+                            <button class="function__completed">
+                                Completed
+                            </button>
+                        </div>
+                        <div class="footer__clear">
+                            <button class="clear">Clear Completed</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.listinfo -->
+            </section>
+            <!-- /.section__listinfo -->
+        </div>
+        <!-- /footer -->
+        <footer>
+            <div class="container">
+                <section class="footer">
+                    <h3 class="footer__title">Drag and drop to reorder list</h3>
+                </section>
+            </div>
+        </footer>
+        <!-- /footer -->
+        <script src="app.js"></script>
+    </body>
+</html>

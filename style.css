@@ -167,17 +167,22 @@ li.todo__task {
   letter-spacing: -0.25px;
   cursor: pointer;
 }
+li.todo__task.delete {
+  animation: opacity 1s ease-in-out;
+}
 
-.todo__task:hover::after {
-  content: '';
-  display: inline-block;
+.todo__icon {
+  display: none;
   position: absolute;
-  width: 18px;
-  height: 18px;
-  background-image: url('image/del.svg');
-  background-repeat: no-repeat;
   right: 24px;
   top: 23px;
+  /* opacity: 0; */
+}
+
+.todo__task:hover > img.todo__icon {
+  /* opacity: 1;
+  transition: 2s; */
+  display: block;
 }
 
 /*------------listinfo__footer*/
@@ -218,4 +223,13 @@ h3.footer__title {
   line-height: 14px;
   text-align: center;
   letter-spacing: -0.194444px;
+}
+
+@keyframes opacity {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }

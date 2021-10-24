@@ -2,7 +2,7 @@ body {
   background: #171823;
   background-image: url('image/themedark.png');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 100% cover;
 }
 button.change-theme {
   background-image: url('image/sun.svg');
@@ -34,6 +34,15 @@ input.create__input:focus {
   background: #25273d;
   box-shadow: 0px 35px 50px -15px rgba(0, 0, 0, 0.5);
 }
+@media all and (max-width: 650px) {
+  .listinfo {
+    background: transparent;
+    box-shadow: none;
+  }
+  .listinfo__todo {
+    background: #25273d;
+  }
+}
 
 li.todo__task {
   border-bottom: solid 1px #393a4b;
@@ -46,6 +55,32 @@ li.checked {
 /*------------listinfo__footer*/
 .listinfo__footer {
   background: #25273d;
+}
+@media all and (max-width: 650px) {
+  .listinfo__footer {
+    background: transparent;
+  }
+}
+
+@media all and (max-width: 650px) {
+  .listinfo__footer {
+  }
+  .footer__calc {
+    background: #25273d;
+    border-bottom: solid 1px transparent;
+    border-bottom-left-radius: 5px;
+  }
+  .footer__function {
+    border-top: solid 1px transparent;
+    background: #25273d;
+    border-radius: 5px;
+    box-shadow: 0px 35px 50px -15px rgba(0, 0, 0, 0.5);
+  }
+  .footer__clear {
+    background: #25273d;
+    border-bottom: solid 1px transparent;
+    border-bottom-right-radius: 5px;
+  }
 }
 .calc {
   color: #5b5e7e;

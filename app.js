@@ -7,22 +7,22 @@ let checkboxCreate = document.querySelector('.create__checkbox')
 let checkboxTodo = document.querySelector('.todo__checkbox')
 let activeElem = document.querySelector('.function__active')
 let completedElem = document.querySelector('.function__completed')
+let allElem = document.querySelector('.function__all')
 let clearElems = document.querySelector('.footer__clear')
 let footerElems = document.querySelector('.footer__function')
 let calkNumber = document.querySelector('.calc__number')
-
-console.log(checkboxTodo)
+let todoTask = document.querySelectorAll('.todo__task')
+let button = document.querySelector('.button')
 
 let light = 'light-theme.css'
 let dark = 'dark-theme.css'
 let tasks = []
 let todoItemElems = []
 
-// let activeTasks = []
+let activeTasks = []
+let completedTasks = []
 
-// if (localStorage.getItem('tasks') !== null) {
-//   tasks = JSON.parse(localStorage.getItem('activeTasks'))
-// }
+console.log('tasks', tasks)
 
 if (localStorage.getItem('tasks') !== null) {
   tasks = JSON.parse(localStorage.getItem('tasks'))
@@ -31,45 +31,38 @@ if (localStorage.getItem('tasks') !== null) {
 if (localStorage.getItem('theme') !== null) {
   themeLink.href = localStorage.getItem('theme')
 }
+
 function Task(description, completed) {
   this.description = description
   this.completed = completed
-}
-const calkTasks = (calk) => {
-  calkNumber.innerHTML = calk
 }
 
 const taskAllLocalStorage = () => {
   localStorage.setItem('tasks', JSON.stringify(tasks))
 }
 
-// const taskActiveLocalStorage = () => {
-//   localStorage.setItem('activeTasks', JSON.stringify(activeTasks))
-// }
+const filterTasks = () => {
+  activeTasks = tasks.length && tasks.filter((item) => item.completed == false)
+  completedTasks =
+    tasks.length && tasks.filter((item) => item.completed == true)
+  tasks = [...completedTasks, ...activeTasks]
+}
 
-// const createList = (task, index) => {
-//   return `
+console.log('activeTasks:', activeTasks)
+console.log('completedTasks:', completedTasks)
 
-// <li class="todo__task ${task.completed ? 'checked' : ''}"  >
-//     <input
-//       type="checkbox"
-//       onclick = completeTask(${index})
-//       class="todo__checkbox"
-//       id="${index}" ${task.completed ? 'checked' : ''}
-//     />
-//     <label
-//       class="todo__item"
-//       for="${index}">
-//     </label>
-//       ${task.description}
-//       <img
-//                                     class="todo__icon"
-//                                     onclick = deleteTask(${index})
-//                                     src="image/del.svg"
-//                                     alt="delete icon"
-//                                 />
-//   </li>`
-// }
+/*Кількість активних задачь */
+const calkTasks = () => {
+  filterTasks()
+  let calk = activeTasks.length
+  if (activeTasks.length !== 0) {
+    calkNumber.innerHTML = calk
+  } else {
+    calkNumber.innerHTML = '0'
+  }
+  // console.log(calk)
+}
+calkTasks()
 
 const createList = (task, index) => {
   let li = document.createElement('li')
@@ -92,27 +85,50 @@ const createList = (task, index) => {
 
   if (task.completed == true) {
     li.classList.add('checked')
+    inputCheckbox.checked = true
+    // console.log(inputCheckbox.checked)
   }
+  inputCheckbox.addEventListener('click', function () {
+    completeTask(index)
+  })
+  img.addEventListener('click', function () {
+    deleteTask(index)
+  })
 }
 
-function inputClean(createInput, checkboxCreate) {
+const inputClean = (createInput, checkboxCreate) => {
   createInput.value = ''
   checkboxCreate.checked = false
 }
 
-const fillHtmlList = () => {
+const fillHtmlList = (list) => {
+  filterTasks()
   todoList.innerHTML = ''
-  if (tasks.length !== 0) {
-    calkTasks(tasks.length)
-    tasks.forEach((item, index) => {
-      // todoList.innerHTML += createList(item, index)
+  if (list.length !== 0) {
+    // calkTasks(tasks.length)
+    list.forEach((item, index) => {
       createList(item, index)
     })
     todoItemElems = document.querySelectorAll('.todo__task')
   }
 }
-fillHtmlList()
+fillHtmlList(tasks)
+///////////////////////////
+// const fillHtmlList = () => {
+//   filterTasks()
+//   todoList.innerHTML = ''
+//   if (tasks.length !== 0) {
+//     // calkTasks(tasks.length)
+//     tasks.forEach((item, index) => {
+//       createList(item, index)
+//     })
+//     todoItemElems = document.querySelectorAll('.todo__task')
+//   }
+// }
+// fillHtmlList()
+/////////////////////////////////////
 
+/*Змінюємо тему */
 switchTheme.addEventListener('click', function () {
   if (themeLink.getAttribute('href') == dark) {
     themeLink.href = light
@@ -132,35 +148,54 @@ const completeTask = (index) => {
   } else {
     todoItemElems[index].classList.remove('checked')
   }
+  filterTasks()
+  calkTasks()
   taskAllLocalStorage()
-  fillHtmlList()
+  fillHtmlList(tasks)
 }
 
-// const filterTasks = (activeTasks,completedTasks) => {
-//   let activeTasks = tasks.filter((item) => item.completed == false)
-
-//   let completedTasks = tasks.filter((item) => item.completed == true)
+// const togglerActiveClass = () => {
+//   let active = document.querySelector('.active')
+//   active.classList.remove('active')
 // }
 
 activeElem.addEventListener('click', function () {
   let active = document.querySelector('.active')
   active.classList.remove('active')
   this.classList.add('active')
-  let activeTasks = tasks.filter((item) => item.completed == false)
-  tasks = [...activeTasks]
-  // taskActiveLocalStorage()
-  // taskAllLocalStorage()
-  fillHtmlList()
+  fillHtmlList(activeTasks)
 })
 
 completedElem.addEventListener('click', function () {
   let active = document.querySelector('.active')
   active.classList.remove('active')
   this.classList.add('active')
-  let completedTasks = tasks.filter((item) => item.completed == true)
-  tasks = [...completedTasks]
-  // taskAllLocalStorag()
-  fillHtmlList()
+  // let active = document.querySelector('.active')
+  // active.classList.remove('active')
+  // this.classList.add('active')
+  // completedTasks = tasks.filter((item) => item.completed == true)
+  // taskCompletedLocalStorage()
+  // completedHtmlList()
+  fillHtmlList(completedTasks)
+})
+
+const deleteTask = (index) => {
+  todoItemElems[index].classList.add('delete')
+  setTimeout(() => {
+    tasks.splice(index, 1)
+    taskAllLocalStorage()
+    fillHtmlList(tasks)
+    filterTasks()
+  }, 500)
+}
+
+allElem.addEventListener('click', function () {
+  let active = document.querySelector('.active')
+  active.classList.remove('active')
+  this.classList.add('active')
+  // tasks = [...activeTasks, ...completedTasks]
+  // taskAllLocalStorage()
+  fillHtmlList(tasks)
 })
 
 addTask.addEventListener('click', function () {
@@ -169,19 +204,23 @@ addTask.addEventListener('click', function () {
   tasks.push(new Task(valueInput, valueCreateCheckbox))
 
   taskAllLocalStorage()
-  fillHtmlList()
+  fillHtmlList(tasks)
+  filterTasks()
   inputClean(createInput, checkboxCreate)
 })
 
-const deleteTask = (index) => {
-  todoItemElems[index].classList.add('delete')
-  setTimeout(() => {
-    tasks.splice(index, 1)
-    taskAllLocalStorage()
-    fillHtmlList()
-  }, 500)
-}
+clearElems.addEventListener('click', function () {
+  let clearTasks = tasks.filter((item) => item.completed == false)
+  tasks = [...clearTasks]
+  taskAllLocalStorage()
+  fillHtmlList(tasks)
+  filterTasks()
+})
 
-console.log(tasks)
+console.log('tasks:', tasks)
+console.log('activeTasks:', activeTasks)
+console.log('completedTasks:', completedTasks)
+
+// console.log(todoItemElems)
 
 // console.log(activeTasks)

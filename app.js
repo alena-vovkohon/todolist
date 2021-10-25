@@ -1,6 +1,6 @@
 let switchTheme = document.querySelector('.change-theme')
 let themeLink = document.getElementById('theme')
-let addTask = document.querySelector('.create__button')
+let createTask = document.querySelector('.create')
 let createInput = document.querySelector('.create__input')
 let todoList = document.querySelector('.todo__list')
 let checkboxCreate = document.querySelector('.create__checkbox')
@@ -45,7 +45,7 @@ const filterTasks = () => {
   activeTasks = tasks.length && tasks.filter((item) => item.completed == false)
   completedTasks =
     tasks.length && tasks.filter((item) => item.completed == true)
-  tasks = [...completedTasks, ...activeTasks]
+  // tasks = [...completedTasks, ...activeTasks]
 }
 
 console.log('activeTasks:', activeTasks)
@@ -53,14 +53,13 @@ console.log('completedTasks:', completedTasks)
 
 /*Кількість активних задачь */
 const calkTasks = () => {
-  filterTasks()
+  activeTasks = tasks.length && tasks.filter((item) => item.completed == false)
   let calk = activeTasks.length
-  if (activeTasks.length !== 0) {
+  if (calk !== 0) {
     calkNumber.innerHTML = calk
   } else {
     calkNumber.innerHTML = '0'
   }
-  // console.log(calk)
 }
 calkTasks()
 
@@ -86,11 +85,11 @@ const createList = (task, index) => {
   if (task.completed == true) {
     li.classList.add('checked')
     inputCheckbox.checked = true
-    // console.log(inputCheckbox.checked)
   }
   inputCheckbox.addEventListener('click', function () {
     completeTask(index)
   })
+
   img.addEventListener('click', function () {
     deleteTask(index)
   })
@@ -105,7 +104,6 @@ const fillHtmlList = (list) => {
   filterTasks()
   todoList.innerHTML = ''
   if (list.length !== 0) {
-    // calkTasks(tasks.length)
     list.forEach((item, index) => {
       createList(item, index)
     })
@@ -113,36 +111,9 @@ const fillHtmlList = (list) => {
   }
 }
 fillHtmlList(tasks)
-///////////////////////////
-// const fillHtmlList = () => {
-//   filterTasks()
-//   todoList.innerHTML = ''
-//   if (tasks.length !== 0) {
-//     // calkTasks(tasks.length)
-//     tasks.forEach((item, index) => {
-//       createList(item, index)
-//     })
-//     todoItemElems = document.querySelectorAll('.todo__task')
-//   }
-// }
-// fillHtmlList()
-/////////////////////////////////////
-
-/*Змінюємо тему */
-switchTheme.addEventListener('click', function () {
-  if (themeLink.getAttribute('href') == dark) {
-    themeLink.href = light
-    localStorage.removeItem('theme')
-  } else {
-    themeLink.href = dark
-    localStorage.setItem('theme', dark)
-  }
-})
 
 const completeTask = (index) => {
-  console.log(index)
   tasks[index].completed = !tasks[index].completed
-  console.log(tasks[index].completed)
   if (tasks[index].completed === true) {
     todoItemElems[index].classList.add('checked')
   } else {
@@ -153,11 +124,6 @@ const completeTask = (index) => {
   taskAllLocalStorage()
   fillHtmlList(tasks)
 }
-
-// const togglerActiveClass = () => {
-//   let active = document.querySelector('.active')
-//   active.classList.remove('active')
-// }
 
 activeElem.addEventListener('click', function () {
   let active = document.querySelector('.active')
@@ -170,12 +136,6 @@ completedElem.addEventListener('click', function () {
   let active = document.querySelector('.active')
   active.classList.remove('active')
   this.classList.add('active')
-  // let active = document.querySelector('.active')
-  // active.classList.remove('active')
-  // this.classList.add('active')
-  // completedTasks = tasks.filter((item) => item.completed == true)
-  // taskCompletedLocalStorage()
-  // completedHtmlList()
   fillHtmlList(completedTasks)
 })
 
@@ -193,20 +153,20 @@ allElem.addEventListener('click', function () {
   let active = document.querySelector('.active')
   active.classList.remove('active')
   this.classList.add('active')
-  // tasks = [...activeTasks, ...completedTasks]
-  // taskAllLocalStorage()
   fillHtmlList(tasks)
 })
 
-addTask.addEventListener('click', function () {
-  let valueInput = createInput.value
-  let valueCreateCheckbox = checkboxCreate.checked
-  tasks.push(new Task(valueInput, valueCreateCheckbox))
-
-  taskAllLocalStorage()
-  fillHtmlList(tasks)
-  filterTasks()
-  inputClean(createInput, checkboxCreate)
+createTask.addEventListener('keypress', (keyPressed) => {
+  const keyEnter = 13
+  if (keyPressed.which == keyEnter) {
+    let valueInput = createInput.value
+    let valueCreateCheckbox = checkboxCreate.checked
+    tasks.push(new Task(valueInput, valueCreateCheckbox))
+    taskAllLocalStorage()
+    fillHtmlList(tasks)
+    filterTasks()
+    inputClean(createInput, checkboxCreate)
+  }
 })
 
 clearElems.addEventListener('click', function () {
@@ -217,10 +177,17 @@ clearElems.addEventListener('click', function () {
   filterTasks()
 })
 
+/*Змінюємо тему */
+switchTheme.addEventListener('click', function () {
+  if (themeLink.getAttribute('href') == dark) {
+    themeLink.href = light
+    localStorage.removeItem('theme')
+  } else {
+    themeLink.href = dark
+    localStorage.setItem('theme', dark)
+  }
+})
+
 console.log('tasks:', tasks)
 console.log('activeTasks:', activeTasks)
 console.log('completedTasks:', completedTasks)
-
-// console.log(todoItemElems)
-
-// console.log(activeTasks)

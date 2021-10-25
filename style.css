@@ -259,6 +259,7 @@ input.create__input:focus {
 ul.todo__list {
   list-style-type: none;
 }
+
 li.todo__task {
   padding: 20px 24px 19px;
   position: relative;

@@ -2,7 +2,7 @@ body {
   background: #171823;
   background-image: url('image/themedark.png');
   background-repeat: no-repeat;
-  background-size: 100% cover;
+  background-size: 2000px 300px;
 }
 button.change-theme {
   background-image: url('image/sun.svg');

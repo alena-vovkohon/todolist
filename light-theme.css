@@ -2,7 +2,7 @@ body {
   background: #f2f2f2;
   background-image: url('image/themelight.png');
   background-repeat: no-repeat;
-  background-size: 100% cover;
+  background-size: 2000px 300px;
 }
 button.change-theme {
   background-image: url('image/moon.svg');

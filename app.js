@@ -45,6 +45,7 @@ const filterTasks = () => {
   activeTasks = tasks.length && tasks.filter((item) => item.completed == false)
   completedTasks =
     tasks.length && tasks.filter((item) => item.completed == true)
+
   // tasks = [...completedTasks, ...activeTasks]
 }
 
@@ -122,20 +123,25 @@ const completeTask = (index) => {
   filterTasks()
   calkTasks()
   taskAllLocalStorage()
-  fillHtmlList(tasks)
+  // fillHtmlList(tasks)
 }
 
 activeElem.addEventListener('click', function () {
   let active = document.querySelector('.active')
   active.classList.remove('active')
   this.classList.add('active')
+
+  filterTasks()
   fillHtmlList(activeTasks)
+  taskAllLocalStorage()
 })
 
 completedElem.addEventListener('click', function () {
   let active = document.querySelector('.active')
   active.classList.remove('active')
   this.classList.add('active')
+  taskAllLocalStorage()
+  filterTasks()
   fillHtmlList(completedTasks)
 })
 
